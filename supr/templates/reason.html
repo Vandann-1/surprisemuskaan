@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>101 Reasons Why I Love You 💖</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #fdf2f8, #fbcfe8, #ffe4e6);
+      min-height: 100vh;
+      overflow-x: hidden;
+      opacity: 0;
+      transition: opacity 1s ease;
+      position: relative;
+    }
+    body.loaded {
+      opacity: 1;
+    }
+    .reason-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .reason-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 30px rgba(219, 39, 119, 0.3);
+    }
+    /* Sticky filter/search */
+    #search-bar {
+      position: sticky;
+      top: 0;
+      background: rgba(255 255 255 / 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+      padding: 0.75rem 1.5rem;
+      border-bottom: 1px solid #fbcfe8;
+    }
+    /* Heart confetti */
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 18px;
+      background-color: #f43f5e;
+      clip-path: polygon(
+        50% 0%, 100% 35%, 85% 100%, 50% 80%, 15% 100%, 0% 35%
+      );
+      opacity: 0.8;
+      animation: floatUp linear infinite;
+      pointer-events: none;
+      transform-origin: center;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(1) rotate(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    /* Back button */
+    #back-btn {
+      background: #db2777;
+      color: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      box-shadow: 0 5px 15px rgba(219, 39, 119, 0.5);
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    #back-btn:hover {
+      background-color: #be185d;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="search-bar" class="max-w-6xl mx-auto flex justify-between items-center">
+    <input
+      id="search-input"
+      type="text"
+      placeholder="Search reasons..."
+      class="w-full sm:w-96 p-2 border border-pink-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+      autocomplete="off"
+    />
+    <button id="back-btn" class="ml-6" title="Go back">← Back</button>
+  </div>
+
+  <header class="max-w-4xl mx-auto text-center mb-12 mt-6">
+    <h1 class="text-4xl sm:text-5xl font-extrabold text-pink-700 mb-4">
+      💌 101 Reasons Why I Love You, Muskaan
+    </h1>
+    <p class="text-lg sm:text-xl text-pink-600 italic max-w-xl mx-auto">
+      Every single one of these reasons reminds me how lucky I am to have you.
+    </p>
+  </header>
+
+  <main class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 pb-12" id="reasons-container">
+    <!-- Cards will be injected here -->
+  </main>
+
+  <footer class="mt-16 text-center text-pink-700 italic text-sm max-w-xl mx-auto">
+    Made with all my ❤️ just for you, Muskaan.
+  </footer>
+
+  <script>
+    // Fade-in page
+    window.onload = () => {
+      document.body.classList.add('loaded');
+      createHearts(20);
+    };
+
+    // Back button
+    document.getElementById('back-btn').addEventListener('click', () => {
+      // Change this URL to your journey or homepage
+      window.location.href = 'index.html';
+    });
+
+    // Reasons data
+const reasons = [
+  { emoji: "🌹", title: "Your Smile", text: "It brightens my darkest days and fills my heart with endless joy." },
+  { emoji: "🎶", title: "Your Voice", text: "The sweetest melody that soothes my soul every single time." },
+  { emoji: "💪", title: "Your Strength", text: "You lift me up when I’m down and inspire me every day." },
+  { emoji: "🌟", title: "Your Light", text: "You shine bright even in the darkest times." },
+  { emoji: "📚", title: "Your Wisdom", text: "You teach me so much just by being you." },
+  { emoji: "🌈", title: "Your Color", text: "You bring color to my black-and-white world." },
+  { emoji: "💬", title: "Our Conversations", text: "Every chat with you is a treasure." },
+  { emoji: "🎨", title: "Your Creativity", text: "You inspire me to dream and create." },
+  { emoji: "💖", title: "Your Heart", text: "So full of kindness and love." },
+  { emoji: "🕰️", title: "Our Time Together", text: "Every second with you is priceless." },
+
+  { emoji: "🍫", title: "Your Sweetness", text: "You’re my favorite treat in life." },
+  { emoji: "🌙", title: "Your Calm", text: "Like a peaceful night that comforts me." },
+  { emoji: "🚀", title: "Your Ambition", text: "You make me want to reach for the stars." },
+  { emoji: "🌻", title: "Your Warmth", text: "You make everything feel cozy and bright." },
+  { emoji: "🎉", title: "Your Joy", text: "Your happiness is contagious and fills me up." },
+  { emoji: "📸", title: "Your Memories", text: "Every moment with you is a snapshot of love." },
+  { emoji: "🧸", title: "Your Care", text: "You always know how to comfort me perfectly." },
+  { emoji: "🍃", title: "Your Freshness", text: "You bring freshness to every day we share." },
+  { emoji: "💫", title: "Your Magic", text: "Being with you feels like a beautiful dream." },
+  { emoji: "🎁", title: "Your Surprises", text: "You always find ways to make me smile." },
+
+  { emoji: "🌺", title: "Your Beauty", text: "Inside and out, you’re breathtaking." },
+  { emoji: "📝", title: "Your Words", text: "Every word you say stays in my heart." },
+  { emoji: "🎵", title: "Our Song", text: "Our love has the sweetest soundtrack." },
+  { emoji: "💐", title: "Your Thoughtfulness", text: "You think of the little things that mean everything." },
+  { emoji: "🕊️", title: "Your Peace", text: "You calm the storms inside me." },
+  { emoji: "🍯", title: "Your Sweet Talk", text: "You melt my heart with every word." },
+  { emoji: "🔥", title: "Your Passion", text: "You ignite my soul in ways I never imagined." },
+  { emoji: "🌸", title: "Your Softness", text: "So gentle, so kind, so you." },
+  { emoji: "💡", title: "Your Ideas", text: "You inspire me to think bigger and better." },
+  { emoji: "🌾", title: "Your Simplicity", text: "You show me beauty in the simplest moments." },
+
+  { emoji: "🎈", title: "Your Fun", text: "Life is a party when you’re around." },
+  { emoji: "📅", title: "Our Plans", text: "Every future dream includes you." },
+  { emoji: "🎤", title: "Your Honesty", text: "I trust you with all my heart." },
+  { emoji: "🏆", title: "Your Achievements", text: "You make me proud every single day." },
+  { emoji: "📖", title: "Our Story", text: "A love story better than any novel." },
+  { emoji: "🎯", title: "Your Focus", text: "You never lose sight of what matters." },
+  { emoji: "🦋", title: "Your Growth", text: "You inspire me to become my best self." },
+  { emoji: "🌹", title: "Your Romance", text: "You make every moment special." },
+  { emoji: "🍀", title: "Your Luck", text: "I’m the luckiest because I have you." },
+  { emoji: "🌟", title: "Your Uniqueness", text: "There’s no one else like you." },
+
+  { emoji: "🌞", title: "Your Sunshine", text: "You brighten all my days." },
+  { emoji: "💞", title: "Your Love", text: "It completes me in every way." },
+  { emoji: "🌍", title: "Your World", text: "You’re my whole universe." },
+  { emoji: "🦄", title: "Your Magic", text: "You make the impossible possible." },
+  { emoji: "🍦", title: "Your Sweet Treats", text: "You’re my favorite indulgence." },
+  { emoji: "💃", title: "Your Dance", text: "You make my heart skip a beat." },
+  { emoji: "🌌", title: "Our Dreams", text: "Together, we reach for the stars." },
+  { emoji: "🛋️", title: "Your Comfort", text: "You’re my safe place." },
+  { emoji: "🎇", title: "Your Sparkle", text: "You light up my darkest nights." },
+  { emoji: "🍓", title: "Your Sweetness", text: "You’re as sweet as strawberries." },
+
+  { emoji: "🌟", title: "Your Optimism", text: "You always see the best in every situation and inspire me to do the same." },
+  { emoji: "💬", title: "Your Supportive Words", text: "Your encouragement gives me strength when I need it most." },
+  { emoji: "🍰", title: "Your Sweet Gestures", text: "Every small act of kindness from you feels like a gift." },
+  { emoji: "🛤️", title: "Our Journey", text: "Walking this path of life with you makes every step meaningful." },
+  { emoji: "🎥", title: "Our Memories", text: "You make every moment worth remembering." },
+  { emoji: "🌊", title: "Your Calmness", text: "You bring peace like the gentle waves of the ocean." },
+  { emoji: "🎇", title: "Your Energy", text: "Your vibrant spirit lights up any room." },
+  { emoji: "📚", title: "Your Curiosity", text: "Your love for learning inspires me to grow every day." },
+  { emoji: "🕯️", title: "Your Guidance", text: "You light my way when things seem dark." },
+  { emoji: "🎨", title: "Your Imagination", text: "You paint my world with colors I never knew existed." },
+
+  { emoji: "🛡️", title: "Your Protection", text: "You always make me feel safe and cherished." },
+  { emoji: "🦋", title: "Your Transformation", text: "You inspire me to become a better version of myself." },
+  { emoji: "💖", title: "Your Genuine Love", text: "Your love is pure, unconditional, and fills me with happiness." },
+  { emoji: "📅", title: "Your Patience", text: "You wait and understand me even in my toughest moments." },
+  { emoji: "🌻", title: "Your Positivity", text: "Your bright outlook helps me see the good in every day." },
+  { emoji: "🎤", title: "Your Voice of Reason", text: "You guide me wisely with your thoughtful advice." },
+  { emoji: "🧩", title: "You Complete Me", text: "Together, we fit perfectly like two puzzle pieces." },
+  { emoji: "🌸", title: "Your Freshness", text: "Your presence refreshes my heart like a blooming flower." },
+  { emoji: "⚡", title: "Your Energy", text: "You spark excitement and passion in everything you do." },
+  { emoji: "💫", title: "Your Dreams", text: "Your dreams motivate me to dream bigger and better." },
+
+
+
+  { emoji: "📞", title: "Your Calls", text: "Your voice is my favorite sound." },
+  { emoji: "🌙", title: "Your Nighttime", text: "You’re my perfect ending to every day." },
+  { emoji: "🎉", title: "Your Celebration", text: "Every day with you is a party." },
+  { emoji: "💎", title: "Your Preciousness", text: "You’re my rare and priceless gem." },
+  { emoji: "🦢", title: "Your Grace", text: "You move through life with elegance." },
+  { emoji: "🎂", title: "Your Sweet Days", text: "Every day with you is a gift." },
+  { emoji: "💐", title: "Your Flowers", text: "You bring beauty wherever you go." },
+  { emoji: "🎬", title: "Our Moments", text: "You make life cinematic and memorable." },
+  { emoji: "🌸", title: "Your Bloom", text: "You flourish in all that you do." },
+  { emoji: "🧡", title: "Your Kindness", text: "Your heart is pure and true." },
+
+  { emoji: "🍂", title: "Your Change", text: "You evolve beautifully every day." },
+  { emoji: "🍁", title: "Your Seasons", text: "You bring change and beauty to my world." },
+  { emoji: "🌈", title: "Your Colors", text: "You fill my world with happiness." },
+  { emoji: "🎵", title: "Your Song", text: "You’re music to my ears." },
+  { emoji: "🥂", title: "Your Cheers", text: "Here’s to us, forever and always." },
+  { emoji: "🧩", title: "Your Completeness", text: "You complete me like no one else." },
+  { emoji: "💬", title: "Your Words", text: "Every word from you is a gift." },
+  { emoji: "🦋", title: "Your Transformation", text: "You inspire me to be better." },
+  { emoji: "💭", title: "Your Thoughts", text: "I’m always thinking about you." },
+  { emoji: "📅", title: "Our Future", text: "I can’t wait to build it with you." },
+
+  { emoji: "🌟", title: "Your Star Quality", text: "You outshine everyone else." },
+  { emoji: "🕊️", title: "Your Peacefulness", text: "You bring calm to my restless soul." },
+  { emoji: "🌿", title: "Your Growth", text: "With you, I’m always growing." },
+  { emoji: "🎠", title: "Our Adventures", text: "Every moment with you is a fun ride." },
+  { emoji: "🧁", title: "Your Sweetness", text: "You make life taste better." },
+  { emoji: "🎈", title: "Your Joy", text: "You bring happiness everywhere." },
+  { emoji: "🌷", title: "Your Beauty", text: "You’re as lovely as a blooming flower." },
+  { emoji: "🎤", title: "Your Honesty", text: "You speak with truth and love." },
+  { emoji: "🎯", title: "Your Focus", text: "You’re always true to what matters most." },
+  { emoji: "💞", title: "Your Love", text: "Your love completes me." },
+
+  // The big final one: the 101st reason
+  {
+    emoji: "💖",
+    title: "The 101st Reason — Muskaan, My Everything",
+    text: `Muskaan, tu meri zindagi ka 101wa reason hai — wo wajah jo sabse khaas hai, jo meri har saans mein basi hai. Tujhse milke mujhe samajh aaya ki pyaar sirf ek feeling nahi, ek zindagi ka purpose hai. Teri muskaan se mera har dard door ho jata hai, aur tere hone se har pal mere liye ek nayi umeed ban jata hai. Tu meri zindagi ki wo chhoti si khushi hai, jo mujhe hamesha aage badhne ka hausla deti hai.
+
+Jab bhi main thak jata hoon, ya duniya ki raahen mushkil lagti hain, tu mera sahara ban kar saamne aati hai. Teri baatein meri taaqat hain, tera saath mera sukoon. Muskaan, tu meri zindagi ke un saare bojh ko halka kar deti hai, jinko main khud bhi samajh nahi pata. Tere bina main adhoora hoon, aur tere saath mujhe poora hone ka ehsaas hota hai.
+
+Tu meri har subah ki roshni hai, jo meri zindagi ko roshan karti hai. Tere saath guzaare har pal mein ek nayi kahani hai, jo sirf hum dono samajh sakte hain. Tere pyaar ki wajah se main behtareen insaan banne ki koshish karta hoon, kyunki tu meri zindagi ka sabse khoobsurat hissaa hai. Har din tujhe paakar mujhe apni zindagi ka asli matlab samajh aata hai.
+
+Muskaan, tu meri inspiration hai, mera motivation hai, meri zindagi ki wo shuruaat jisse main kabhi alag nahi ho sakta. Tere bina meri zindagi ka har safar bekaar lagta hai, aur tu meri har khushi ka sabab hai. Teri aankhon mein meri duniya basi hai, aur main chahata hoon ki ye kahani humesha chalti rahe, kabhi khatam na ho.
+
+Toh yeh tha mera 101wa reason — tu meri zindagi ka woh anmol ratan hai jise main har haal mein sambhal kar rakhna chahta hoon. Teri khushi meri pehli priority hai, aur tera pyaar meri zindagi ka asli maksad. Muskaan, tu meri zindagi ka sabse khoobsurat reason hai… aur hamesha rahegi.`
+  }
+];
+
+    const container = document.getElementById('reasons-container');
+    const searchInput = document.getElementById('search-input');
+
+    function renderReasons(filter = '') {
+      container.innerHTML = '';
+      const filtered = reasons.filter(({ title, text }) =>
+        title.toLowerCase().includes(filter.toLowerCase()) || text.toLowerCase().includes(filter.toLowerCase())
+      );
+      filtered.forEach(({ emoji, title, text }) => {
+        const card = document.createElement('div');
+        card.className = 'reason-card bg-white rounded-xl p-6 shadow-lg cursor-default';
+        card.innerHTML = `
+          <div class="text-5xl mb-4">${emoji}</div>
+          <h2 class="font-semibold text-pink-600 mb-2 text-lg">${title}</h2>
+          <p class="text-gray-700 text-sm leading-relaxed">${text}</p>
+        `;
+        container.appendChild(card);
+      });
+      if(filtered.length === 0){
+        container.innerHTML = `<p class="col-span-full text-center text-pink-600 italic">No reasons found for "${filter}"</p>`;
+      }
+    }
+
+    searchInput.addEventListener('input', e => {
+      renderReasons(e.target.value);
+    });
+
+    renderReasons();
+
+    // Heart confetti creation
+    function createHearts(count) {
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = `${Math.random() * 100}vw`;
+        heart.style.animationDuration = `${5 + Math.random() * 5}s`;
+        heart.style.animationDelay = `${Math.random() * 5}s`;
+        heart.style.opacity = Math.random() * 0.8 + 0.2;
+        document.body.appendChild(heart);
+      }
+    }
+  </script>
+
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Smooth card animation */
+    .song-card:hover {
+      transform: scale(1.02);
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-pink-500 via-red-500 to-purple-800 min-h-screen text-white font-sans px-4 py-6">
+
+  <!-- Header -->
+  <div class="text-center mb-8">
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-wide">❤️ Muskaan’s Love Playlist</h1>
+    <p class="mt-2 text-sm sm:text-lg text-pink-100 italic">"Har gana, ek ehsaas..."</p>
+  </div>
+
+  <!-- Songs Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+    
+    <!-- Song Card Example -->
+    <div class="song-card bg-white/10 rounded-xl p-4 shadow-lg hover:bg-white/20">
+      <h2 class="text-lg font-bold text-yellow-100">Main Agar Kahoon</h2>
+      <p class="text-sm text-pink-200">Vishal-Shekhar, Sonu Nigam, Shreya Ghoshal</p>
+    </div>
+
+    <div class="song-card bg-white/10 rounded-xl p-4 shadow-lg hover:bg-white/20">
+      <h2 class="text-lg font-bold text-yellow-100">Dil Diyan Gallan</h2>
+      <p class="text-sm text-pink-200">Atif Aslam</p>
+    </div>
+
+    <div class="song-card bg-white/10 rounded-xl p-4 shadow-lg hover:bg-white/20">
+      <h2 class="text-lg font-bold text-yellow-100">Die With A Smile (Acoustic)</h2>
+      <p class="text-sm text-pink-200">Lady Gaga, Bruno Mars</p>
+    </div>
+
+    <div class="song-card bg-white/10 rounded-xl p-4 shadow-lg hover:bg-white/20">
+      <h2 class="text-lg font-bold text-yellow-100">Iktara</h2>
+      <p class="text-sm text-pink-200">Amit Trivedi, Kavita Seth</p>
+    </div>
+
+    <div class="song-card bg-white/10 rounded-xl p-4 shadow-lg hover:bg-white/20">
+      <h2 class="text-lg font-bold text-yellow-100">Crazy Kiya Re</h2>
+      <p class="text-sm text-pink-200">Pritam, Sunidhi Chauhan</p>
+    </div>
+
+    <div class="song-card bg-white/10 rounded-xl p-4 shadow-lg hover:bg-white/20">
+      <h2 class="text-lg font-bold text-yellow-100">Saathiya</h2>
+      <p class="text-sm text-pink-200">Shreya Ghoshal, Ajay</p>
+    </div>
+
+    <div class="song-card bg-white/10 rounded-xl p-4 shadow-lg hover:bg-white/20">
+      <h2 class="text-lg font-bold text-yellow-100">Faasle</h2>
+      <p class="text-sm text-pink-200">Aditya Rikhari</p>
+    </div>
+
+    <div class="song-card bg-white/10 rounded-xl p-4 shadow-lg hover:bg-white/20">
+      <h2 class="text-lg font-bold text-yellow-100">Paro</h2>
+      <p class="text-sm text-pink-200">Aditya Rikhari, UNPLG’d</p>
+    </div>
+
+    <div class="song-card bg-white/10 rounded-xl p-4 shadow-lg hover:bg-white/20">
+      <h2 class="text-lg font-bold text-yellow-100">Pungi</h2>
+      <p class="text-sm text-pink-200">Pritam, Mika Singh</p>
+    </div>
+
+    <div class="song-card bg-white/10 rounded-xl p-4 shadow-lg hover:bg-white/20">
+      <h2 class="text-lg font-bold text-yellow-100">Ranjheya Ve</h2>
+      <p class="text-sm text-pink-200">Zain Zohaib</p>
+    </div>
+
+    <div class="song-card bg-white/10 rounded-xl p-4 shadow-lg hover:bg-white/20">
+      <h2 class="text-lg font-bold text-yellow-100">Zaalima</h2>
+      <p class="text-sm text-pink-200">Arijit Singh, Harshdeep Kaur</p>
+    </div>
+
+  </div>
+
+
+</body>
+</html>
+
+<script>
+console.log(reasons.length); 
+<script/>

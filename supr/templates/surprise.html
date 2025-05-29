@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hi Muskaan 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #ffe4e6, #fbcfe8, #fdf2f8);
+    }
+    .hearts::before {
+      content: "❤️ 💖 💘 💝 💞 💗 ";
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      animation: float 6s linear infinite;
+      font-size: 2rem;
+      opacity: 0.4;
+    }
+
+    @keyframes float {
+      0% { top: 100%; opacity: 0; }
+      50% { opacity: 0.7; }
+      100% { top: -10%; opacity: 0; }
+    }
+
+    @media (min-width: 640px) {
+      .hearts::before {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen relative overflow-hidden">
+
+  <!-- Floating Hearts -->
+  <div class="hearts absolute top-0 left-0 w-full h-full pointer-events-none z-0"></div>
+
+  <!-- Card Content -->
+  <div class="z-10 bg-white p-6 sm:p-10 rounded-3xl shadow-2xl max-w-md sm:max-w-xl mx-4 text-center space-y-5">
+    <h1 class="text-3xl sm:text-4xl font-bold text-pink-700">Hi Muskaan ❤️</h1>
+    <p class="text-base sm:text-lg text-gray-700">
+      Today marks <strong class="text-pink-600">5 months and 11 days</strong> of us being together 💑
+    </p>
+    <p class="text-pink-600 italic">I made this just to say how much you mean to me...</p>
+    <p class="text-gray-800 text-sm sm:text-base leading-relaxed">
+      You light up my world like no one else.  
+      Every moment with you is my favorite memory. 💕  
+      Here's to many more beautiful moments with you!
+    </p>
+    <p class="text-2xl sm:text-3xl text-pink-600 font-bold">I Love You, Muskaan 💘</p>
+
+    <!-- Button to Journey Page -->
+    <a href="{% url 'journey' %}" class="inline-block mt-4 bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-all duration-300">
+      🕰️ See Our Love Journey
+    </a>
+  </div>
+
+</body>
+</html>

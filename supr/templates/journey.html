@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Our Romantic Journey ❤️</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  body {
+    margin: 0; 
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffe6f0, #ffd1e0);
+    color: #4a1a33;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    user-select: none;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2.6rem;
+    color: #d6336c;
+    margin-bottom: 0.7rem;
+    text-align: center;
+  }
+
+  .heart-counter {
+    position: relative;
+    width: 180px;
+    height: 160px;
+    margin-bottom: 1.5rem;
+    background: #d6336c;
+    clip-path: 
+      polygon(
+        50% 15%, 
+        84% 0%, 
+        100% 30%, 
+        85% 65%, 
+        50% 100%, 
+        15% 65%, 
+        0% 30%, 
+        16% 0%
+      );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px #d6336caa;
+    animation: heartbeat 2.5s infinite ease-in-out;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 20px #d6336caa;}
+    50% { transform: scale(1.1); box-shadow: 0 0 35px #ff4d94cc;}
+  }
+
+  .heart-counter span {
+    font-size: 3.8rem;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 0 8px #fff5f9bb;
+  }
+
+  .reasons-btn {
+    display: inline-block;
+    margin-top: -1rem;
+    margin-bottom: 2.5rem;
+    padding: 0.75rem 1.8rem;
+    font-size: 1.1rem;
+    background: #ff4d94;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(255, 77, 148, 0.3);
+    transition: all 0.3s ease;
+    animation: pulseBtn 2.5s infinite ease-in-out;
+  }
+
+  .reasons-btn:hover {
+    background: #e60073;
+    transform: scale(1.07);
+    box-shadow: 0 8px 25px rgba(255, 77, 148, 0.4);
+  }
+
+  @keyframes pulseBtn {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .special-message {
+    max-width: 650px;
+    text-align: center;
+    font-style: italic;
+    color: #a8325e;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    user-select: text;
+    padding: 0 1rem;
+    font-size: 1.15rem;
+  }
+
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 900px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 25px;
+    padding: 1.8rem 2rem;
+    box-shadow: 0 10px 30px rgba(214, 51, 108, 0.15);
+    min-width: 260px;
+    max-width: 280px;
+    cursor: default;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: text;
+  }
+  .card:hover {
+    transform: translateY(-12px) scale(1.05);
+    box-shadow: 0 16px 40px rgba(214, 51, 108, 0.3);
+    z-index: 10;
+  }
+
+  .card::before {
+    content: "♥";
+    position: absolute;
+    font-size: 70px;
+    color: #ff4d94cc;
+    top: -30px;
+    right: 15px;
+    opacity: 0.12;
+    user-select: none;
+    pointer-events: none;
+    animation: floatHeart 4s ease-in-out infinite;
+  }
+
+  @keyframes floatHeart {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .card h3 {
+    margin-top: 0;
+    color: #d6336c;
+    font-weight: 700;
+    font-size: 1.35rem;
+  }
+
+  .card p {
+    margin-top: 0.8rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #551a39;
+  }
+
+  .special-card {
+    background: #ffd1e0;
+    border: 2px solid #d6336c;
+    box-shadow: 0 8px 25px rgba(214, 51, 108, 0.3);
+    font-style: italic;
+    font-weight: 600;
+    color: #7a1741;
+    max-width: 600px;
+    margin: 3rem auto 0;
+    padding: 2rem 2.5rem;
+    border-radius: 30px;
+    user-select: text;
+  }
+
+  @media (max-width: 700px) {
+    .cards-container {
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .card {
+      max-width: 100%;
+      min-width: auto;
+      width: 90vw;
+      padding: 1.5rem 1.8rem;
+      border-radius: 20px;
+    }
+    .special-card {
+      max-width: 90vw;
+      padding: 1.5rem 2rem;
+      font-size: 1rem;
+      margin: 2rem auto 0;
+    }
+    .heart-counter {
+      width: 140px;
+      height: 130px;
+    }
+    .heart-counter span {
+      font-size: 3rem;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <h1>Our Romantic Journey ❤️</h1>
+
+  <div class="heart-counter" aria-label="Total days together in a heart shape">
+    <span>162</span>
+  </div>
+
+  <a href="{% url 'reason' %}" class="reasons-btn" aria-label="Reasons I love you">💌 Reasons I Love You</a>
+
+  <p class="special-message" aria-live="polite">
+    Every day with you is a heartbeat in my life’s melody.<br>
+    162 days — just the beginning,<br>
+    but my heart dreams of forever with you.
+  </p>
+
+  <div class="cards-container" role="list" aria-label="Milestones of our relationship">
+    <article class="card" role="listitem" tabindex="0" aria-label="Day 1: Our Beginning">
+      <h3>Day 1: Our Beginning</h3>
+      <p>The day our beautiful story started — full of hope, excitement, and dreams.</p>
+    </article>
+
+    <article class="card" role="listitem" tabindex="0" aria-label="Day 30: One Month of Us">
+      <h3>Day 30: One Month of Us</h3>
+      <p>We shared laughter and learned about each other’s quirks and charms.</p>
+    </article>
+
+    <article class="card" role="listitem" tabindex="0" aria-label="Day 60: Two Months Strong">
+      <h3>Day 60: Two Months Strong</h3>
+      <p>Through small fights and bigger hugs, our bond only grew stronger.</p>
+    </article>
+
+    <article class="card" role="listitem" tabindex="0" aria-label="Day 100: Three Months and Counting">
+      <h3>Day 100: Three Months and Counting</h3>
+      <p>Every challenge taught us patience and the power of love.</p>
+    </article>
+
+    <article class="card" role="listitem" tabindex="0" aria-label="Day 150: Five Months Nearing">
+      <h3>Day 150: Five Months Nearing</h3>
+      <p>We stood by each other, proving true love fights for itself.</p>
+    </article>
+  </div>
+
+  <section class="special-card" tabindex="0" aria-label="Emotional message about our journey">
+    Many people come into our lives to test and try to break us — but we are unbreakable.<br><br>
+    Yes, we fight a lot, but we never give up on what truly matters — our love.<br><br>
+    Together, we’ve built a fortress of trust, understanding, and endless love.<br><br>
+    No matter the storms, I promise to stand with you and cherish every moment.<br><br>
+    This journey is ours, unique and precious. And I’m so grateful to walk it with you, Muskaan.<br><br>
+    162 days — only the beginning. I want a lifetime, a forever, outshining every moment so far.<br><br>
+    You’re not just my love — you’re my home.
+  </section>
+
+</body>
+</html>

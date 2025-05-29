@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For Someone Special 💖</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-pink-100 to-pink-300 flex items-center justify-center h-screen">
+  <div class="text-center space-y-4">
+    <h1 class="text-4xl font-bold text-pink-700">Hey You 👀</h1>
+    <p class="text-lg text-pink-600">Enter your name to unlock something magical 💌</p>
+    <input id="nameInput" type="text" placeholder="Your Name" class="px-4 py-2 rounded shadow" />
+    <br />
+    <button onclick="checkName()" class="mt-2 bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700">
+      Let's Go 💘
+    </button>
+    <p id="error" class="text-red-600 mt-2 font-semibold"></p>
+  </div>
+
+  <!-- PASS URL FROM DJANGO INTO JS -->
+  <script>
+    const surpriseUrl = "{% url 'surprise' %}";
+
+    function checkName() {
+      const name = document.getElementById("nameInput").value.trim().toLowerCase();
+      if (name === "muskaan") {
+        window.location.href = surpriseUrl;
+      } else {
+        document.getElementById("error").innerText = "Oops! This is only for Muskaan 💗";
+      }
+    }
+  </script>
+</body>
+</html>
